@@ -1,0 +1,55 @@
+version: "3.2"
+
+services:
+  server-1:
+    container_name: CH-Replica-server-1
+    image: yandex/clickhouse-server:20.1.9.54
+    restart: unless-stopped
+    volumes:
+      - ./config.xml:/etc/clickhouse-server/config.d/local.xml
+      - ./macros1.xml:/etc/clickhouse-server/config.d/macros.xml
+      - ./data/1:/var/lib/clickhouse
+    ports:
+      - 8123:8123
+    depends_on:
+      - zookeeper
+
+  server-2:
+    container_name: CH-Replica-server-2
+    image: yandex/clickhouse-server:20.1.9.54
+    restart: unless-stopped
+    volumes:
+      - ./config.xml:/etc/clickhouse-server/config.d/local.xml
+      - ./macros2.xml:/etc/clickhouse-server/config.d/macros.xml
+      - ./data/2:/var/lib/clickhouse
+    depends_on:
+      - zookeeper
+
+  server-3:
+    container_name: CH-Replica-server-3
+    image: yandex/clickhouse-server:20.1.9.54
+    restart: unless-stopped
+    volumes:
+      - ./config.xml:/etc/clickhouse-server/config.d/local.xml
+      - ./macros3.xml:/etc/clickhouse-server/config.d/macros.xml
+      - ./data/3:/var/lib/clickhouse
+    depends_on:
+      - zookeeper
+
+  client:
+    container_name: CH-Replica-client
+    image: yandex/clickhouse-client:20.1.9.54
+    restart: unless-stopped
+    entrypoint:
+      - /bin/sleep
+    command:
+      - infinity
+    depends_on:
+      - server-1
+      - server-2
+      - server-3
+
+  zookeeper:
+    container_name: CH-Replica-zookeeper
+    image: zookeeper:3.6.0
+    restart: unless-stopped
