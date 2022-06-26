@@ -3,7 +3,7 @@ version: "3.2"
 services:
   server-1:
     container_name: CH-Replica-server-1
-    image: yandex/clickhouse-server:20.1.9.54
+    image: yandex/clickhouse-server:22.1.3.7
     restart: unless-stopped
     volumes:
       - ./config.xml:/etc/clickhouse-server/config.d/local.xml
@@ -16,7 +16,7 @@ services:
 
   server-2:
     container_name: CH-Replica-server-2
-    image: yandex/clickhouse-server:20.1.9.54
+    image: yandex/clickhouse-server:22.1.3.7
     restart: unless-stopped
     volumes:
       - ./config.xml:/etc/clickhouse-server/config.d/local.xml
@@ -27,7 +27,7 @@ services:
 
   server-3:
     container_name: CH-Replica-server-3
-    image: yandex/clickhouse-server:20.1.9.54
+    image: yandex/clickhouse-server:22.1.3.7
     restart: unless-stopped
     volumes:
       - ./config.xml:/etc/clickhouse-server/config.d/local.xml
