@@ -51,5 +51,5 @@ services:
 
   zookeeper:
     container_name: CH-Replica-zookeeper
-    image: zookeeper:3.6.0
+    image: zookeeper:3.9.2
     restart: unless-stopped
